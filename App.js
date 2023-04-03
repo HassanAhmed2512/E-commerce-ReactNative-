@@ -4,11 +4,18 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
+import { NativeBaseProvider} from "native-base";
+import NotVerfityScreen from './src/Screens/NotVerfiyScreen';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
+    
+    // <NativeBaseProvider>
+    // <NotVerfityScreen/>
+    //  </NativeBaseProvider>
+
 
     <NavigationContainer>
       <Stack.Navigator>
