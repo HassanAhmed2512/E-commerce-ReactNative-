@@ -5,7 +5,7 @@ import Buttone from "./../Components/Buttone";
 
 function NotVerfityScreen() {
   return (
-    <Box flex={1} bg={"#FFB730"} safeAreaTop>
+    <Box flex={1} bg={Colors.main} safeAreaTop>
       <Center w={"full"} h={250}>
         <Image
           source={require("../../assets/icon.jpg")}

@@ -1,37 +1,47 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import LoginScreen from './screens/LoginScreen';
-import HomeScreen from './screens/HomeScreen';
-import { NativeBaseProvider} from "native-base";
-import NotVerfityScreen from './src/Screens/NotVerfiyScreen';
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+// import LoginScreen from './screens/LoginScreen';
+// import HomeScreen from './screens/HomeScreen';
+import { NativeBaseProvider, StatusBar } from "native-base";
+import HomeScreen from "./src/Screens/HomeScreen";
+import PlaceOrderScreen from "./src/Screens/PlaceOrderScreen";
+import ButtomNav from "./src/Components/ButtomNav";
+import CartScreen from "./src/Screens/CartScreen";
+import LoginScreen from "./src/Screens/LoginScreen";
+import NotVerfityScreen from "./src/Screens/NotVerfiyScreen";
+import OrderScreen from "./src/Screens/OrderScreen";
+import PaymentScreen from "./src/Screens/PaymentScreen";
+import ProfileScreen from "./src/Screens/ProfileScreen";
+import RegisterScreen from "./src/Screens/RegisterScreen";
+import ShippingScreen from "./src/Screens/ShippingScreen";
+import SingleProductScreen from "./src/Screens/SingleProductScreen";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    
-    // <NativeBaseProvider>
-    // <NotVerfityScreen/>
-    //  </NativeBaseProvider>
-
-
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen options={{ headerShown: false }} name="Login" component={LoginScreen} />
-        <Stack.Screen name="Home" component={HomeScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
-    
+    <NativeBaseProvider>
+      <NavigationContainer>
+        <StatusBar hidden={true} />
+        <Stack.Navigator
+          initialRouteName="buttom"
+          screenOptions={{ headerShown: false }}
+        >
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="PlaceOrderScreen" component={PlaceOrderScreen} />
+          <Stack.Screen name="buttom" component={ButtomNav} />
+          <Stack.Screen name="Cart" component={CartScreen} />
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Register" component={RegisterScreen} />
+          <Stack.Screen name="Shipping" component={ShippingScreen} />
+          <Stack.Screen name="NotVerfiy" component={NotVerfityScreen} />
+          <Stack.Screen name="Order" component={OrderScreen} />
+          <Stack.Screen name="Payment" component={PaymentScreen} />
+          <Stack.Screen name="Profile" component={ProfileScreen} />
+          <Stack.Screen name="SingleProduct" component={SingleProductScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </NativeBaseProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
