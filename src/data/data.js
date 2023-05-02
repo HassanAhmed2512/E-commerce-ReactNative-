@@ -27,7 +27,7 @@ const Colors = {
     main : "#48B600",
     white : "#FFFFFF",
     black : "#000000" ,
-    lightblack : "#BCBCBC",
+    lightBlack : "#BCBCBC",
     orange : "#FFCE31" ,
     red : "#FF0000" ,
     gray : "#F4F4F4",
@@ -38,5 +38,21 @@ const Colors = {
     underline : "#E5E5E5",
     paypal : "#FFB730"
 }
-
-export {Colors , products}
+const orderInfos=[
+    {
+        title:"products",
+        price:3.99,
+        color:"black"
+    },
+    {
+        title:"shipping",
+        price:5.99,
+        color:"black"
+    },
+    {
+        title:"Total Amount",
+        price:9.99,
+        color:"main"
+    }
+]
+export {Colors , products, orderInfos}
