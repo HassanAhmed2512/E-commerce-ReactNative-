@@ -1,49 +1,38 @@
 import { Button, Center,  Modal, VStack, FormControl,Input} from "native-base";
 import React, { useState } from "react";
-import { Colors } from "../../data/data";
+import { Colors, date2str, str2date,inputs, labelToPlaceholder, testId,calculateAge } from "../../data/data";
+import { auth, db, setUser, updateUser } from "../../../firebase";
+import { useEffect } from "react";
+
 const [bg,color,mt]=[Colors.black,Colors.white,5];
 const [size1]=["lg"];
 const [maxWidth2]=[350];
 const [space3]=[10];
 const [color4,fz4,mb4]=[Colors.black,14,8];
-
-
-
-const inputs= [
-    {
-    label: "FIRSTNAME",
-    type: "text"
-    },
-    {
-    label: "LASTNAME",
-    type: "text"
-    },
-    {
-    label: "BIRTHDAY",
-    type: "date"
-    },
-    {
-    label: "PHONE NUMBER",
-    type: "number"
-    },
-    {
-    label: "NEW PASSWORD",
-    type: "password"
-    },
-    {
-    label: "CONFIRM PASSWORD",
-    type: "password"
-    },
-]
-
-const UpdateProfile=()=>{
-    const[showModel,setShowModel]=useState(false);
-    // cant use a buttone properly
+    
+const UpdateProfile=({tempUserData,fetchData})=>{
+    const[showModal,setShowModal]=useState(false);
+    const[userData,setUserData]=useState({});
+    
+    useEffect(() => {
+        setUserData(tempUserData);
+    }, [tempUserData]);
+    const locUpdateUser=()=>{
+        const ff=async()=>{
+            const res1=await updateUser(db,'test-users',auth.currentUser.uid,userData );
+            const res2=await fetchData();
+            console.log("updated user succesfully with id:");
+            console.log(auth.currentUser.uid);
+            return res1;
+        }
+        ff();
+    }
     return(
         <Center>
-            
             <Button
-                onPress={()=>setShowModel(true) }
+                onPress={()=>{
+                    setShowModal(true)
+                }}
                 
                 bg={Colors.main}
                 color={color}
@@ -54,8 +43,8 @@ const UpdateProfile=()=>{
                 EDIT PROFILE
             </Button>
             <Modal
-                isOpen={showModel}
-                onClose={()=>setShowModel(false) }
+                isOpen={showModal}
+                onClose={()=>setShowModal(false) }
                 size={size1}
             >
                 <Modal.Content 
@@ -86,24 +75,34 @@ const UpdateProfile=()=>{
                             {i.label}
                         </FormControl.Label>
                         {/* Text input */}
-                        
                         <Input
-                        borderWidth={0.2}
-                        bg={Colors.subGreen}
-                        borderColor= {Colors.main}
-                        py={4}
-                        type={i.type}
-                        color={Colors.main}
-                        fontSize={15}
-                        _focus={{
-                        bg:Colors.subGreen,
-                        borderColor: Colors.main,
-                        borderWidth: 1
-                        }}
+                            name={i.label}
+                            value={!userData[i.label]&&i.label!=="age"?"":(i.label==="age"?calculateAge(userData.birthDate):userData[i.label] ) }
+                            onChangeText={(text)=>{
+                                if(i.label==="password") return;
+                                // console.log(await getUser(db,'test-users',testId) );
+                                // console.log(userData);
+                                setUserData({...userData, [i.label]:text } );
+                            }}
+                            isDisabled
+                            borderWidth={0.2}
+                            bg={Colors.subGreen}
+                            borderColor= {Colors.main}
+                            py={4}
+                            type={i.type}
+                            color={Colors.main}
+                            fontSize={15}
+                            _focus={{
+                                bg:Colors.subGreen,
+                                borderColor: Colors.main,
+                                borderWidth: 1
+                                }}
                         />
+                        
                     </FormControl>
                         ))
                     }
+                        
                         </VStack>
                     </Modal.Body>
                     <Modal.Footer
@@ -112,17 +111,21 @@ const UpdateProfile=()=>{
                         <Button
                             flex={1}
                             bg={Colors.main}
+                            onPress={()=>{
+                                locUpdateUser();
+                                setShowModal(false);
+                            }}
                             h={45}
                             _text={{
                                 color:Colors.white
                             }}
-                            onPress={()=>setShowModel(false) }
                             _pressed={{
                                 bg:Colors.main
                             }}
                         >
                             UPDATE PROFILE
                         </Button>
+                        
                     </Modal.Footer>
                 </Modal.Content>
             </Modal>

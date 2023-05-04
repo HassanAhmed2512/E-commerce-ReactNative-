@@ -1,14 +1,13 @@
 import { React } from "react";
 import { Box, Button, Heading, Image, Input, Pressable, VStack, Text } from "native-base";
-import { Colors } from "../data/data";
+import { Colors, minPassLen } from "../data/data";
 import { useState } from "react";
 import Inputs from "../Components/Inputs"
 import Loader from "../Components/Loader";
 import Buttone from "../Components/Buttone";
-import auth from "firebase/auth";
 import { getAuth , signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useEffect } from "react";
-
+import { auth } from "../../firebase";
 
 const provider = new GoogleAuthProvider();
 function LoginScreen({navigation}) {
@@ -68,12 +67,12 @@ function LoginScreen({navigation}) {
       handleError("please enter the password. ", "password");
       console.log("passskdkd")
       isValid = false;
-    } else if (inputs.password.length < 8) {
-      handleError("minimum password length is 8", "password");
+    } else if (inputs.password.length < minPassLen) {
+      handleError("minimum password length is "+minPassLen, "password");
       isValid = false;
     }
     if (isValid)
-    handleLogin();
+      handleLogin();
   };
 
   const handleError = (text, input) => {
@@ -82,18 +81,21 @@ function LoginScreen({navigation}) {
   };
 
   const handleLogin = () => {
+    const {email,password}=inputs;
+    auth.signInWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      console.log("Log in completed succesfully for user(user object,id):");
+      console.log(user);
+      console.log(auth.currentUser.uid)
+
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      alert(errorMessage)
+    });
     setisAuth(true);
-    // signInWithEmailAndPassword(auth, inputs.email, inputs.password)
-    // .then((userCredential) => {
-    //   const user = userCredential.user;
-    //   console.log('Logged in with:', user.email);
-    // })
-    // .catch((error) => {
-    //   const errorCode = error.code;
-    //   const errorMessage = error.message;
-    //   alert(errorMessage);
-    //   setLoading(true);
-    // });
   }
 
   return (

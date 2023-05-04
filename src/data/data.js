@@ -55,4 +55,115 @@ const orderInfos=[
         color:"main"
     }
 ]
+export const inputs= [
+    {
+    label: "firstName",
+    type: "text"
+    },
+    {
+    label: "lastName",
+    type: "text"
+    },
+    {
+    label: "birthDate",
+    type: "date"
+    },
+    {
+    label: "phone",
+    type: "text"
+    },
+    {
+    label: "email",
+    type: "text"
+    },
+    {
+    label: "password",
+    type: "text"
+    },
+    {
+    label: "age",
+    type: "text"
+    }
+];
+const label2d = [
+    ["firstName", "First Name"],
+    ["lastName", "Last Name"],
+    ["birthDate", "Birth Date(yyyy/mm/dd)"],
+    ["phone", "Phone Number"],
+    ["email", "Email"],
+    ["password", "Password"],
+    ["password", "Confirm Password"],
+    ["age","Age"]
+];
+export const labelToPlaceholder = new Map(label2d);
+export const testId="a@a.com";
+export const isValidDate=(dateStr)=>{
+    // Check that the date string matches the format 'yyyy/mm/dd'
+    const datePattern = /^\d{4}\/\d{2}\/\d{2}$/;
+    if (!datePattern.test(dateStr)) {
+      return false;
+    }
+  
+    // Create a new Date object from the date string
+    const dateObj = new Date(dateStr.replaceAll("/", "-"));
+  
+    // Check that the date object is valid
+    if (isNaN(dateObj.getTime())) {
+      return false;
+    }
+  
+    // Check that the year, month, and day values match the input string
+    const [year, month, day] = dateStr.split('/');
+    if (
+      dateObj.getFullYear() !== Number(year) ||
+      dateObj.getMonth() !== Number(month) - 1 ||
+      dateObj.getDate() !== Number(day)
+    ) {
+      return false;
+    }
+  
+    // The date string is valid
+    return true;
+}
+
+export const date2str=(date)=>{
+    // date=new Date();
+    // console.log(date);
+    const isoString = date.toISOString();
+    const year = isoString.substring(0, 4);
+    const month = isoString.substring(5, 7);
+    const day = isoString.substring(8, 10);
+    const formattedDate = `${year}/${month}/${day}`;
+    return formattedDate;
+}
+export const str2date=(dateStr)=>{
+    if(!isValidDate(dateStr) ) return null;
+    // console.log(dateStr.replaceAll("/", "-"));
+    const date = new Date(dateStr.replaceAll("/", "-") );
+    // console.log(date);
+    // console.log("--------------------------");
+    return isNaN(date)?null:date;
+}
+export const calculateAge=(str)=>{
+    const birthDate=str2date(str);
+    const birthYear = new Date(birthDate).getFullYear();
+    const currentYear = new Date().getFullYear();
+    let age = currentYear - birthYear;
+
+    const birthMonth = new Date(birthDate).getMonth();
+    const currentMonth = new Date().getMonth();
+
+    if (currentMonth < birthMonth) {
+      age--;
+    } else if (currentMonth === birthMonth) {
+      const birthDay = new Date(birthDate).getDate();
+      const currentDay = new Date().getDate();
+      if (currentDay < birthDay) {
+        age--;
+      }
+    }
+    return age.toString(10);
+  }
+export const minPassLen=6;
+export const minPhoneLen=11;
 export {Colors , products, orderInfos}
