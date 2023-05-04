@@ -16,6 +16,8 @@ import ProfileScreen from "./src/Screens/ProfileScreen";
 import RegisterScreen from "./src/Screens/RegisterScreen";
 import ShippingScreen from "./src/Screens/ShippingScreen";
 import SingleProductScreen from "./src/Screens/SingleProductScreen";
+import ForgetPasswordScreen from "./src/Screens/ForgetPasswordScreen";
+
 
 const Stack = createNativeStackNavigator();
 
@@ -25,7 +27,7 @@ export default function App() {
       <NavigationContainer>
         <StatusBar hidden={true} />
         <Stack.Navigator
-          initialRouteName="buttom"
+          initialRouteName="NotVerfiy"
           screenOptions={{ headerShown: false }}
         >
           <Stack.Screen name="Home" component={HomeScreen} />
@@ -34,6 +36,7 @@ export default function App() {
           <Stack.Screen name="Cart" component={CartScreen} />
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Register" component={RegisterScreen} />
+          <Stack.Screen name="ForgetPassword" component={ForgetPasswordScreen} />
           <Stack.Screen name="Shipping" component={ShippingScreen} />
           <Stack.Screen name="NotVerfiy" component={NotVerfityScreen} />
           <Stack.Screen name="Order" component={OrderScreen} />

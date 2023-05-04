@@ -6,10 +6,9 @@ import Inputs from "../Components/Inputs"
 import Buttone from '../Components/Buttone';
 import Loader from '../Components/Loader';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { Platform } from 'react-native';
-import { TextInput } from 'react-native';
-import { type } from './../../node_modules/@react-native-community/datetimepicker/src/androidUtils';
- const RegisterScreen = ()=> {
+import { useEffect } from "react";
+
+ const RegisterScreen = ({navigation})=> {
   const [inputs, setInputs] = useState({
     Fname: "",
     Lname:"",
@@ -23,6 +22,17 @@ import { type } from './../../node_modules/@react-native-community/datetimepicke
   const [errors, setErrors] = useState({});
   const [loading, setLoading] =useState(false);
   const [showPiker, setShowPiker] = useState(false);
+
+  const [isAuth, setisAuth] =useState(false);
+
+
+  useEffect(() => {
+    if (isAuth) {
+      navigation.replace("buttom")
+    } 
+  ;
+}, [isAuth])
+
   const toggleDatepiker = ()=>{
     console.log("Toggle Picker Called");
     setShowPiker(!showPiker)
@@ -42,11 +52,11 @@ import { type } from './../../node_modules/@react-native-community/datetimepicke
   const validate = () => {
     let isValid = true;
     if (!inputs.Fname) {
-      handleError("please enter the First Name. ", "name");
+      handleError("please enter the First Name. ", "Fname");
       isValid = false;
     }
     if (!inputs.Lname) {
-      handleError("please enter the Last Name. ", "name");
+      handleError("please enter the Last Name. ", "Lname");
       isValid = false;
     }
     if (!inputs.number) {
@@ -80,6 +90,8 @@ import { type } from './../../node_modules/@react-native-community/datetimepicke
     if (isValid)
       register();
   };
+
+  
   const register = () => {
     console.log(inputs.Fname)
     console.log(inputs.Lname)
@@ -89,6 +101,7 @@ import { type } from './../../node_modules/@react-native-community/datetimepicke
     console.log(inputs.dateOfBirthFormated)
     console.log(inputs.number)
     setLoading(true);
+    setisAuth(true);
   };
 
   const handleOnChange = (text, input) => {
@@ -98,7 +111,6 @@ import { type } from './../../node_modules/@react-native-community/datetimepicke
 
   const handleError = (text, input) => {
     setErrors((prevState) => ({ ...prevState, [input]: text }));
-
   };
 
   return (
@@ -158,7 +170,6 @@ import { type } from './../../node_modules/@react-native-community/datetimepicke
 
          <View>
             {showPiker && ( <DateTimePicker mode="date" display="spinner" value={dateOfBirth} onConfirm={onDateChange} />)}
-
             <Pressable onPress={toggleDatepiker}>
               <Inputs label="Date Of Birthday" iconName="user" placeholder="Mar 21 2002" value={inputs.dateOfBirthFormated} editable={false} />
             </Pressable>
@@ -226,9 +237,9 @@ import { type } from './../../node_modules/@react-native-community/datetimepicke
         />  */}
       </VStack>
       </ScrollView>
-      <Buttone my={30} w="10%" rounded={50} bg={Colors.white} onPress={validate} childern={"SIGN UP"}/>
-      <Pressable mt={4}>
-        <Text color={Colors.lightblack}>LOG IN</Text>
+      <Buttone my={30} w="10%" rounded={50} bg={Colors.white} onPress={validate} childern={"SIGN UP"} mt={5} />
+      <Pressable mt={4} onPress={()=>{navigation.navigate('Login');}} >
+        <Text color={Colors.blue}>LOG IN</Text>
       </Pressable>
     </Box>
   </Box>

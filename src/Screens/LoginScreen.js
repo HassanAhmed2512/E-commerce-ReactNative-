@@ -7,9 +7,11 @@ import Loader from "../Components/Loader";
 import Buttone from "../Components/Buttone";
 import auth from "firebase/auth";
 import { getAuth , signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { useEffect } from "react";
+
 
 const provider = new GoogleAuthProvider();
-function LoginScreen() {
+function LoginScreen({navigation}) {
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
@@ -17,9 +19,18 @@ function LoginScreen() {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] =useState(false);
 
+  const [isAuth, setisAuth] =useState(false);
+
+
+  useEffect(() => {
+      if (isAuth) {
+        navigation.replace("buttom")
+      } 
+    ;
+  }, [isAuth])
+
   const handleOnChange = (text, input) => {
     setInputs((prevState) => ({ ...prevState, [input]: text }));
-
   };
   const GoogleAuth = () => {
     signInWithPopup(auth, provider)
@@ -71,18 +82,18 @@ function LoginScreen() {
   };
 
   const handleLogin = () => {
-    signInWithEmailAndPassword(auth, inputs.email, inputs.password)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      console.log('Logged in with:', user.email);
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      alert(errorMessage);
-      setLoading(true);
-    });
-
+    setisAuth(true);
+    // signInWithEmailAndPassword(auth, inputs.email, inputs.password)
+    // .then((userCredential) => {
+    //   const user = userCredential.user;
+    //   console.log('Logged in with:', user.email);
+    // })
+    // .catch((error) => {
+    //   const errorCode = error.code;
+    //   const errorMessage = error.message;
+    //   alert(errorMessage);
+    //   setLoading(true);
+    // });
   }
 
   return (
@@ -153,13 +164,14 @@ function LoginScreen() {
           /> */}
         </VStack>
         <Buttone
-          my={30} rounded={50} bg={Colors.white} onPress={validate} childern={"SIGN IN"} />
-
-          
+          my={30} rounded={50} bg={Colors.white} onPress={validate} childern={"SIGN IN"} mt={5} />
           <Buttone
-          my={30} rounded={50} bg={Colors.blue} onPress={GoogleAuth} childern={"SIGN IN With Google"} />
-        <Pressable mt={4}>
+          my={30} rounded={50} bg={Colors.blue} onPress={GoogleAuth} childern={"SIGN IN With Google"} mt={5} />
+        <Pressable mt={4} onPress={()=>{navigation.navigate('Register');}}>
           <Text color={Colors.lightblack}>SIGN UP</Text>
+        </Pressable>
+        <Pressable mt={4} onPress={()=>{navigation.navigate('ForgetPassword');}}>
+          <Text color={Colors.lightblack}> Forget Password ? </Text>
         </Pressable>
       </Box>
     </Box>

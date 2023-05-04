@@ -49,6 +49,7 @@ const ForgetPasswordScreen = ({navigation}) => {
     //   alert(errorMessage);
     // });
     setLoading(true);
+    navigation.navigate('Login');
   }
 
 
@@ -83,8 +84,11 @@ const ForgetPasswordScreen = ({navigation}) => {
             />
         </VStack>
         <Buttone my={30} rounded={50} bg={Colors.white} onPress={validate} childern={"SEND"} />
-        <Pressable mt={4}>
+        <Pressable mt={4} onPress={()=>{navigation.navigate('Register');}}  >
           <Text color={Colors.lightblack}>SIGN UP</Text>
+        </Pressable>
+        <Pressable mt={4} onPress={()=>{navigation.navigate('Login');}}  >
+          <Text color={Colors.lightblack}>SIGN IN</Text>
         </Pressable>
       </Box>
     </Box>
