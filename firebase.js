@@ -3,7 +3,7 @@
 // import firebase from "firebase/compat/app";
 import firebase from 'firebase/compat/app';
 import { deleteDoc, doc, getDoc, getFirestore, setDoc, updateDoc } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 
@@ -19,7 +19,6 @@ const firebaseConfig = {
   messagingSenderId: "553702657372",
   appId: "1:553702657372:web:7e68bca22610a7502bc599"
 };
-
 // Initialize Firebase
 const app = firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
@@ -74,4 +73,40 @@ const deleteUser=async(db,collection,id,obj=null)=>{
   await deleteDoc(docRef);
   return true;
 }
-export { auth, db, setUser, getUser, updateUser, deleteUser};
+
+const storage=getStorage(app);
+
+const uploadImage=async(uri,dir,id)=>{
+  // return download url;
+  const response = await fetch(uri);
+
+  const blob = await response.blob();
+  const storageRef = ref(storage, `${dir}/${id}`);
+
+  let dwlUrl=null;
+  uploadBytes(storageRef, blob).then((snapshot) => {
+      getDownloadURL(snapshot.ref).then((url) => {
+        console.log(url);
+        dwlUrl=url;
+      });
+  });
+  // return downloadURL;
+  if(!dwlUrl) throw "could not upload image, something went wrong";
+  return dwlUrl
+}
+const isFile = async (path) => {
+  let dwlUrl=null;
+  getDownloadURL(ref(storage, path))
+  .then((url) => {
+    console.log(`File at ${path} exists with URL: `, url);
+    dwlUrl=url;
+    return true;
+  })
+  .catch((error) => {
+    console.log(`File at ${path} does not exist: `, error.message);
+    return false;
+  });
+  return dwlUrl;
+};
+
+export { auth, db, storage,setUser, getUser, updateUser, deleteUser, uploadImage, isFile};

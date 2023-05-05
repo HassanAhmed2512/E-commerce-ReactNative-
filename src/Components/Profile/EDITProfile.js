@@ -5,6 +5,7 @@ import UpdateProfile from './UpdateProfile';
 import { useState } from "react";
 import { useEffect } from "react";
 import { auth, db, getUser } from "../../../firebase";
+import UploadImage from "./UserPhoto";
 
 // define label and label types
 
@@ -12,7 +13,7 @@ const EDITProfile = () => {
     const[showModal,setShowModal]=useState(false);
     const[userData,setUserData]=useState({});
     const fetchData = async () => {
-        console.log(auth.currentUser.uid);
+        // console.log(auth.currentUser.uid);
         const res= await getUser(db,'test-users',auth.currentUser.uid);
         setUserData(res);
         return res;
@@ -65,10 +66,12 @@ const EDITProfile = () => {
                             </FormControl>
                                 ))
                     }
-                    <UpdateProfile
+
+                    {/* <UpdateProfile
                         tempUserData={userData}
                         fetchData={fetchData}
-                    />
+                    /> */}
+                    <UploadImage/>
                 </VStack>
             </ScrollView>
 

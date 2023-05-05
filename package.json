@@ -10,10 +10,12 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
+    "@react-native-community/datetimepicker": "6.7.3",
     "@react-navigation/bottom-tabs": "^6.5.7",
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/native-stack": "^6.9.12",
     "expo": "~48.0.9",
+    "expo-image-picker": "^14.1.1",
     "expo-status-bar": "~1.4.4",
     "firebase": "^9.19.1",
     "native-base": "^3.4.28",
@@ -28,8 +30,7 @@
     "react-native-svg": "^13.4.0",
     "react-native-swipe-list-view": "^3.2.9",
     "react-native-tab-view": "^3.5.1",
-    "react-native-web": "^0.18.10",
-    "@react-native-community/datetimepicker": "6.7.3"
+    "react-native-web": "^0.18.10"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
