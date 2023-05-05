@@ -1,22 +1,23 @@
 import { Box, Button, Heading, Image, Input, Pressable, ScrollView, Text , VStack, View } from 'native-base';
 import { React } from 'react';
-import { Colors } from '../data/data';
+import { Colors, isValidDate, minPassLen, minPhoneLen } from '../data/data';
 import { useState } from "react";
 import Inputs from "../Components/Inputs"
 import Buttone from '../Components/Buttone';
 import Loader from '../Components/Loader';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useEffect } from "react";
+import { auth, db, setUser } from '../../firebase';
 
  const RegisterScreen = ({navigation})=> {
   const [inputs, setInputs] = useState({
-    Fname: "",
-    Lname:"",
+    firstName: "",
+    lastName:"",
     email: "",
     password: "",
     confirmPassword: "",
-    number: "",
-    dateOfBirthFormated: "",
+    phone: "",
+    birthDate: "",
   });
   const [dateOfBirth,setDateOfBirth]=useState(new Date());
   const [errors, setErrors] = useState({});
@@ -41,7 +42,7 @@ import { useEffect } from "react";
     if(type == "set") {
       console.log(selectDate);
       let date = selectDate.toString().split(' ');
-      inputs.dateOfBirthFormated(date ? `${date[0]} ${date[1]} ${date[2]} ${date[3]}` : 'sss');
+      inputs.birthDate(date ? `${date[0]} ${date[1]} ${date[2]} ${date[3]}` : 'sss');
       setDateOfBirth(selectDate);
 
       console.log(date);
@@ -51,19 +52,19 @@ import { useEffect } from "react";
   }
   const validate = () => {
     let isValid = true;
-    if (!inputs.Fname) {
-      handleError("please enter the First Name. ", "Fname");
+    if (!inputs.firstName) {
+      handleError("please enter the First Name. ", "firstName");
       isValid = false;
     }
-    if (!inputs.Lname) {
-      handleError("please enter the Last Name. ", "Lname");
+    if (!inputs.lastName) {
+      handleError("please enter the Last Name. ", "lastName");
       isValid = false;
     }
-    if (!inputs.number) {
-      handleError("please enter the number. ", "number");
+    if (!inputs.phone) {
+      handleError("please enter the phone. ", "phone");
       isValid = false;
-    }else if (inputs.number.length < 11){
-      handleError("minimum number length is 11", "number");
+    }else if (inputs.phone.length < minPhoneLen){
+      handleError("minimum phone length is 11", "phone");
       isValid = false;
     }
     if (!inputs.email) {
@@ -76,8 +77,8 @@ import { useEffect } from "react";
     if (!inputs.password) {
       handleError("please enter the password. ", "password");
       isValid = false;
-    } else if (inputs.password.length < 8) {
-      handleError("minimum password length is 8", "password");
+    } else if (inputs.password.length < minPassLen) {
+      handleError("minimum password length is "+minPassLen, "password");
       isValid = false;
     }
     if (!inputs.confirmPassword) {
@@ -87,21 +88,44 @@ import { useEffect } from "react";
       handleError("password does not match ", "confirmPassword");
       isValid = false;
     }
+    if(!isValidDate(inputs.birthDate) ){
+      handleError("incorrect date format ", "birthDate");
+      isValid = false;
+    }
     if (isValid)
       register();
   };
-
+  
   
   const register = () => {
-    console.log(inputs.Fname)
-    console.log(inputs.Lname)
+    console.log(inputs.firstName)
+    console.log(inputs.lastName)
     console.log(inputs.password)
     console.log(inputs.confirmPassword)
     console.log(inputs.email)
-    console.log(inputs.dateOfBirthFormated)
-    console.log(inputs.number)
-    setLoading(true);
-    setisAuth(true);
+    console.log(inputs.birthDate)
+    console.log(inputs.phone)
+    
+    const {email,password}=inputs;
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then(userCredentials => {
+        const ff=async()=>{
+          const user = userCredentials.user;
+          // alert("signed up succesfully with:"+user.email)
+          const res=await setUser(db,'test-users',auth.currentUser.uid,{
+            ...inputs,photoUrl:""
+          })
+          console.log("Sign up completed succesfully for user(user object,id):");
+          console.log(user);
+          console.log(auth.currentUser.uid)
+          return res;
+        }
+        ff(); 
+      })
+      .catch(error => alert(error.message))
+      setLoading(true);
+      setisAuth(true);
   };
 
   const handleOnChange = (text, input) => {
@@ -139,24 +163,24 @@ import { useEffect } from "react";
       <Inputs label="First Name"
             iconName="user-circle"
             placeholder=" Enter Your First Name"
-            onChangeText={(text) => handleOnChange(text, "Fname")}
-            onFocus={() => handleError(null, "Fname")}
-            error={errors.Fname}
+            onChangeText={(text) => handleOnChange(text, "firstName")}
+            onFocus={() => handleError(null, "firstName")}
+            error={errors.firstName}
           />
         <Inputs label="Last Name"
             iconName="user-circle"
             placeholder=" Enter Your First Name"
-            onChangeText={(text) => handleOnChange(text, "Lname")}
-            onFocus={() => handleError(null, "Lname")}
-            error={errors.Lname}
+            onChangeText={(text) => handleOnChange(text, "lastName")}
+            onFocus={() => handleError(null, "lastName")}
+            error={errors.lastName}
           />
 
-          <Inputs label="Number"
+          <Inputs label="Phone"
             iconName="phone-alt"
-            placeholder=" Enter Your Number"
-            onChangeText={(text) => handleOnChange(text, "number")}
-            onFocus={() => handleError(null, "number")}
-            error={errors.number}
+            placeholder=" Enter Your Phone"
+            onChangeText={(text) => handleOnChange(text, "phone")}
+            onFocus={() => handleError(null, "phone")}
+            error={errors.phone}
           />
 
           <Inputs
@@ -169,10 +193,18 @@ import { useEffect } from "react";
           />
 
          <View>
-            {showPiker && ( <DateTimePicker mode="date" display="spinner" value={dateOfBirth} onConfirm={onDateChange} />)}
+            {/* {showPiker && ( <DateTimePicker mode="date" display="spinner" value={dateOfBirth} onConfirm={onDateChange} />)}
             <Pressable onPress={toggleDatepiker}>
-              <Inputs label="Date Of Birthday" iconName="user" placeholder="Mar 21 2002" value={inputs.dateOfBirthFormated} editable={false} />
-            </Pressable>
+              <Inputs label="Date Of Birthday" iconName="user" placeholder="Mar 21 2002" value={inputs.birthDate} editable={false} />
+            </Pressable> */}
+            <Inputs
+            label="Birth Date(yyyy/mm/dd)"
+            iconName="user"
+            placeholder="Enter Your Birth Date"
+            onChangeText={(text) => handleOnChange(text, "birthDate")}
+            onFocus={() => handleError(null, "birthDate")}
+            error={errors.birthDate}
+          />
          </View>
 
           <Inputs
@@ -237,7 +269,11 @@ import { useEffect } from "react";
         />  */}
       </VStack>
       </ScrollView>
-      <Buttone my={30} w="10%" rounded={50} bg={Colors.white} onPress={validate} childern={"SIGN UP"} mt={5} />
+      <Buttone my={30} w="10%" rounded={50} bg={Colors.white} onPress={()=>{
+        // console.log(isValidDate(inputs.birthDate) );
+        validate();
+        // register();
+      }} childern={"SIGN UP"} mt={5} />
       <Pressable mt={4} onPress={()=>{navigation.navigate('Login');}} >
         <Text color={Colors.blue}>LOG IN</Text>
       </Pressable>
