@@ -92,7 +92,7 @@ const label2d = [
     ["phone", "Phone Number"],
     ["email", "Email"],
     ["password", "Password"],
-    ["password", "Confirm Password"],
+   // ["password", "Confirm Password"],
     ["age","Age"]
 ];
 export const labelToPlaceholder = new Map(label2d);

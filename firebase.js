@@ -11,13 +11,24 @@ import 'firebase/compat/firestore';
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
+//Ahmed Hany Config
+// const firebaseConfig = {
+//   apiKey: "AIzaSyDdLJDKiREMMwtEB1x0krgrJQAx3LGlaoc",
+//   authDomain: "cs303-proj.firebaseapp.com",
+//   projectId: "cs303-proj",
+//   storageBucket: "cs303-proj.appspot.com",
+//   messagingSenderId: "553702657372",
+//   appId: "1:553702657372:web:7e68bca22610a7502bc599"
+// };
+
+//Hassan Ahmed
 const firebaseConfig = {
-  apiKey: "AIzaSyDdLJDKiREMMwtEB1x0krgrJQAx3LGlaoc",
-  authDomain: "cs303-proj.firebaseapp.com",
-  projectId: "cs303-proj",
-  storageBucket: "cs303-proj.appspot.com",
-  messagingSenderId: "553702657372",
-  appId: "1:553702657372:web:7e68bca22610a7502bc599"
+  apiKey: "AIzaSyA-atbyw-l92PBR_J6fVwBV4_8i0QPQGts",
+  authDomain: "react-native-auth-8fa1b.firebaseapp.com",
+  projectId: "react-native-auth-8fa1b",
+  storageBucket: "react-native-auth-8fa1b.appspot.com",
+  messagingSenderId: "971567626598",
+  appId: "1:971567626598:web:e0d7aff57494615174b0a7"
 };
 // Initialize Firebase
 const app = firebase.initializeApp(firebaseConfig);

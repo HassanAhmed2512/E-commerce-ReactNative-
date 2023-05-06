@@ -5,6 +5,10 @@ import { useState } from "react";
 import Inputs from "../Components/Inputs"
 import Loader from "../Components/Loader";
  import Buttone from "../Components/Buttone";
+ import { sendPasswordResetEmail } from "firebase/auth";
+ import { auth } from "../../firebase";
+
+
 
 const ForgetPasswordScreen = ({navigation}) => {
   const [loading, setLoading] = useState(false);
@@ -39,15 +43,15 @@ const ForgetPasswordScreen = ({navigation}) => {
   };
 
   const handlerest = () => {
-    // sendPasswordResetEmail(auth, inputs.email)
-    // .then(() => {
-    //   alert("Email has been sent successfully")
-    // })
-    // .catch((error) => {
-    //   const errorCode = error.code;
-    //   const errorMessage = error.message;
-    //   alert(errorMessage);
-    // });
+    sendPasswordResetEmail(auth, inputs.email)
+    .then(() => {
+      alert("Email has been sent successfully")
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      alert(errorMessage);
+    });
     setLoading(true);
     navigation.navigate('Login');
   }

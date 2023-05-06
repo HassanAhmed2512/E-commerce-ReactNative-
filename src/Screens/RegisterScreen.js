@@ -8,8 +8,13 @@ import Loader from '../Components/Loader';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useEffect } from "react";
 import { auth, db, setUser } from '../../firebase';
+import { getAuth , signInWithPopup, GoogleAuthProvider , onAuthStateChanged } from "firebase/auth";
+
+
 
  const RegisterScreen = ({navigation})=> {
+
+  
   const [inputs, setInputs] = useState({
     firstName: "",
     lastName:"",
@@ -28,28 +33,15 @@ import { auth, db, setUser } from '../../firebase';
 
 
   useEffect(() => {
-    if (isAuth) {
-      navigation.replace("buttom")
-    } 
-  ;
-}, [isAuth])
+    const state = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        navigation.replace("buttom")
+      } 
+    });
+    return state
+}, [])
 
-  const toggleDatepiker = ()=>{
-    console.log("Toggle Picker Called");
-    setShowPiker(!showPiker)
-  }
-  const onDateChange =({type},selectDate)=>{
-    if(type == "set") {
-      console.log(selectDate);
-      let date = selectDate.toString().split(' ');
-      inputs.birthDate(date ? `${date[0]} ${date[1]} ${date[2]} ${date[3]}` : 'sss');
-      setDateOfBirth(selectDate);
-
-      console.log(date);
-      // console.log(date);
-    }
-    toggleDatepiker();
-  }
+ 
   const validate = () => {
     let isValid = true;
     if (!inputs.firstName) {
@@ -121,11 +113,11 @@ import { auth, db, setUser } from '../../firebase';
           console.log(auth.currentUser.uid)
           return res;
         }
+        setisAuth(true);
         ff(); 
       })
       .catch(error => alert(error.message))
       setLoading(true);
-      setisAuth(true);
   };
 
   const handleOnChange = (text, input) => {
