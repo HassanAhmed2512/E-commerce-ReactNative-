@@ -5,11 +5,12 @@ import { useState } from "react";
 import Inputs from "../Components/Inputs"
 import Loader from "../Components/Loader";
 import Buttone from "../Components/Buttone";
-import { getAuth , signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getAuth , signInWithPopup, GoogleAuthProvider , onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
 import { auth } from "../../firebase";
 
 const provider = new GoogleAuthProvider();
+
 function LoginScreen({navigation}) {
   const [inputs, setInputs] = useState({
     email: "",
@@ -18,15 +19,16 @@ function LoginScreen({navigation}) {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] =useState(false);
 
-  const [isAuth, setisAuth] =useState(false);
 
 
   useEffect(() => {
-      if (isAuth) {
+    const state = onAuthStateChanged(auth, (user) => {
+      if (user) {
         navigation.replace("buttom")
       } 
-    ;
-  }, [isAuth])
+    });
+    return state
+  }, [])
 
   const handleOnChange = (text, input) => {
     setInputs((prevState) => ({ ...prevState, [input]: text }));
@@ -88,14 +90,13 @@ function LoginScreen({navigation}) {
       console.log("Log in completed succesfully for user(user object,id):");
       console.log(user);
       console.log(auth.currentUser.uid)
-
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
       alert(errorMessage)
     });
-    setisAuth(true);
+    
   }
 
   return (

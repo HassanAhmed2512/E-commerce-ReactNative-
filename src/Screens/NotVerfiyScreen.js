@@ -2,8 +2,22 @@ import { Box, Center , Heading, Image , VStack } from "native-base";
 import { React } from "react";
 import { Colors } from "../data/data";
 import Buttone from "./../Components/Buttone";
+import { onAuthStateChanged } from "firebase/auth";
+import { useEffect } from "react";
+import { auth } from "../../firebase";
+
 
 function NotVerfityScreen({navigation}) {
+  
+  useEffect(() => {
+    const state = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        navigation.replace("buttom")
+      } 
+    });
+    return state
+}, [])
+
   return (
     <Box flex={1} bg={Colors.main} safeAreaTop>
       <Center w={"full"} h={250}>

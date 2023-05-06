@@ -1,33 +1,56 @@
-import { Center, Heading, Image, Text } from "native-base";
+import { Button, Center, Heading, Image, Text, Box, Spacer } from "native-base";
 import React from "react";
 import { Colors } from "../data/data";
 import Tabs from './../Components/Profile/Tabs';
+import UploadImage from './../Components/Profile/UserPhoto';
+import { useState , useEffect } from "react";
+import { auth, db, getUser } from "../../firebase";
+import Buttone from "../Components/Buttone";
+import { signOut } from "firebase/auth";
 
-function ProfileScreen () {
+function ProfileScreen ({navigation}) {
+  const [userData, setUserData] = useState({});
 
-    return(
-        <>
-        <Center bg={Colors.main} pt={10} pb={6}>
-            <Image 
-                source={require("../../assets/IMG_20211202_123941_615.jpg")}
-                alt= "profile"
-                w={24}
-                h={24}
-                resizeMode= "cover"/>
-            <Heading bold fontSize={15} isTruncated my={2} color={Colors.white}>
-                Admin Doe
-            </Heading>
-            <Text italic fontSize={10} color={Colors.white}>
-                Joined April 4 2023
-            </Text>
+  const fetchData = async () => {
+    const res = await getUser(db, 'test-users', auth.currentUser.uid);
+    setUserData(res);
+    return res;
+  };
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const handleSignOut = () => {
+    signOut(auth).then(() => {
+      navigation.replace("Login")
+    }).catch((error) => {
+      alert(error.message)
+    });
+}
+
+  return (
+    <Box flex={1}>
+      <Box bg={Colors.main} py={6}>
+        <Center>
+          <UploadImage/>
+          <Heading bold fontSize={15} isTruncated my={2} color={Colors.white}>
+            {userData.firstName}
+          </Heading>
+          <Text italic fontSize={10} color={Colors.white}>
+            {userData.birthDate}
+          </Text>
         </Center>
-        {/* TABS */}
-        <Tabs/>
-        </>
-            
-    );
-
+        <Box p={2} position="absolute" top={4} right={4}  >
+          <Button onPress={handleSignOut} variant="outline" size="sm" bgColor={Colors.white} >
+            <Text>Logout</Text>
+          </Button>
+        </Box>
+      </Box>
+      {/* TABS */}
+      <Tabs/>
+    </Box>
+  );
 }
 
 export default ProfileScreen;

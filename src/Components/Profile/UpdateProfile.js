@@ -80,6 +80,8 @@ const UpdateProfile=({tempUserData,fetchData})=>{
                             value={!userData[i.label]&&i.label!=="age"?"":(i.label==="age"?calculateAge(userData.birthDate):userData[i.label] ) }
                             onChangeText={(text)=>{
                                 if(i.label==="password") return;
+                                if(i.label==="email") return;
+
                                 // console.log(await getUser(db,'test-users',testId) );
                                 // console.log(userData);
                                 setUserData({...userData, [i.label]:text } );

@@ -67,11 +67,10 @@ const EDITProfile = () => {
                                 ))
                     }
 
-                    {/* <UpdateProfile
+                    <UpdateProfile
                         tempUserData={userData}
                         fetchData={fetchData}
-                    /> */}
-                    <UploadImage/>
+                    />
                 </VStack>
             </ScrollView>
 
