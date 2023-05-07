@@ -76,7 +76,7 @@ export default function Review() {
                 endIcon: <CheckIcon size={3} />,
               }}
               selectedValue={rate}
-              onValueChange={(e) => setRate(e)}>
+              >
               <Select.Item label="1 - Poor" value="1" />
               <Select.Item label="2 - Fair" value="2" />
               <Select.Item label="3 - Average" value="3" />
@@ -105,14 +105,10 @@ export default function Review() {
                 bg: Colors.subGreen,
               }}
               value={comment}
-              onChangeText={(text) => setComment(text)}
             />
           </FormControl>
 
-          <Buttone bg={Colors.main} color={Colors.white}>
-            SUBMIT
-          </Buttone>
-
+          <Buttone bg={Colors.main} color={Colors.white} childern={"Submit"}/>
           {/* If not logged in */}
           {/* <Message 
             color={Colors.white}
