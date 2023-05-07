@@ -2,8 +2,8 @@ import { React } from "react";
 import { Box, Button, Heading, Image, Input, Pressable, VStack, Text } from "native-base";
 import { Colors, minPassLen } from "../data/data";
 import { useState } from "react";
-import Inputs from "../Components/Inputs"
-import Loader from "../Components/Loader";
+import Inputs from "../Components/Login&SignUp/Inputs"
+import Loader from "../Components/Login&SignUp/Loader";
 import Buttone from "../Components/Buttone";
 import { getAuth , signInWithPopup, GoogleAuthProvider , onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
@@ -62,12 +62,10 @@ function LoginScreen({navigation}) {
       isValid = false;
     } else if (inputs.email.match(/\s+@\s+\.\s+/)) {
       handleError("please enter valid email. ", "email");
-      console.log("error");
       isValid = false;
     }
     if (!inputs.password) {
       handleError("please enter the password. ", "password");
-      console.log("passskdkd")
       isValid = false;
     } else if (inputs.password.length < minPassLen) {
       handleError("minimum password length is "+minPassLen, "password");
@@ -87,9 +85,6 @@ function LoginScreen({navigation}) {
     auth.signInWithEmailAndPassword(email, password)
     .then((userCredential) => {
       const user = userCredential.user;
-      console.log("Log in completed succesfully for user(user object,id):");
-      console.log(user);
-      console.log(auth.currentUser.uid)
     })
     .catch((error) => {
       const errorCode = error.code;

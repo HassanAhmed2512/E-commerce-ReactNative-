@@ -1,7 +1,7 @@
 import { Box, Flex, ScrollView, Text, View ,Pressable, Image, Heading } from 'native-base';
 import React from 'react';
-import { Colors, products } from '../data/data';
-import Rating from './Rating';
+import { Colors, products } from '../../data/data';
+import Rating from '../Rating';
 import { useNavigation } from '@react-navigation/native';
 
 function HomeProducts() {

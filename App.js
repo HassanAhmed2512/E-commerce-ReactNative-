@@ -6,12 +6,10 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NativeBaseProvider, StatusBar } from "native-base";
 import HomeScreen from "./src/Screens/HomeScreen";
 import PlaceOrderScreen from "./src/Screens/PlaceOrderScreen";
-import ButtomNav from "./src/Components/ButtomNav";
+import ButtomNav from "./src/Components/HomePage/ButtomNav";
 import CartScreen from "./src/Screens/CartScreen";
 import LoginScreen from "./src/Screens/LoginScreen";
 import NotVerfityScreen from "./src/Screens/NotVerfiyScreen";
-import OrderScreen from "./src/Screens/OrderScreen";
-import PaymentScreen from "./src/Screens/PaymentScreen";
 import ProfileScreen from "./src/Screens/ProfileScreen";
 import RegisterScreen from "./src/Screens/RegisterScreen";
 import ShippingScreen from "./src/Screens/ShippingScreen";
@@ -39,8 +37,6 @@ export default function App() {
           <Stack.Screen name="ForgetPassword" component={ForgetPasswordScreen} />
           <Stack.Screen name="Shipping" component={ShippingScreen} />
           <Stack.Screen name="NotVerfiy" component={NotVerfityScreen} />
-          <Stack.Screen name="Order" component={OrderScreen} />
-          <Stack.Screen name="Payment" component={PaymentScreen} />
           <Stack.Screen name="Profile" component={ProfileScreen} />
           <Stack.Screen name="SingleProduct" component={SingleProductScreen} />
         </Stack.Navigator>

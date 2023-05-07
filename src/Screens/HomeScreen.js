@@ -1,8 +1,8 @@
 import { Box } from 'native-base';
 import { React } from 'react';
 import { Colors } from "../data/data";
-import HomeSearch from '../Components/HomeSearch';
-import HomeProducts from '../Components/HomeProducts';
+import HomeSearch from '../Components/HomePage/HomeSearch';
+import HomeProducts from '../Components/HomePage/HomeProducts';
 
  function HomeScreen() {
   return (

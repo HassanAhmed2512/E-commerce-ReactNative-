@@ -1,7 +1,7 @@
 import { React } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Center, Pressable, Text } from "native-base";
-import HomeScreen from "../Screens/HomeScreen";
+import HomeScreen from "../../Screens/HomeScreen";
 import {
   AntDesign,
   Entypo,
@@ -9,10 +9,10 @@ import {
   FontAwesome5,
   MaterialCommunityIcons
 } from "@expo/vector-icons";
-import { Colors } from "../data/data";
+import { Colors } from "../../data/data";
 import { StyleSheet } from "react-native";
-import ProfileScreen from "./../Screens/ProfileScreen";
-import CartScreen from "./../Screens/CartScreen";
+import ProfileScreen from "../../Screens/ProfileScreen";
+import CartScreen from "../../Screens/CartScreen";
 
 const Tab = createBottomTabNavigator();
 const CusttomTab = ({ children , onPress }) => (

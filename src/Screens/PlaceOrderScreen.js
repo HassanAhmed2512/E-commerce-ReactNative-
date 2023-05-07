@@ -1,10 +1,10 @@
 import { Box, Heading, NativeBaseProvider, ScrollView, Text , View } from 'native-base';
 import { React } from 'react';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
-import OrderInfo from '../Components/OrderInfo';
+import OrderInfo from '../Components/PlaceOrder/OrderInfo';
 import { FontAwesome, FontAwesome5, Ionicons } from '@expo/vector-icons';
-import OrderItem from '../Components/OrderItem';
-import PlaceOrderModel from '../Components/placeOrderModel';
+import OrderItem from '../Components/PlaceOrder/OrderItem';
+import PlaceOrderModel from '../Components/PlaceOrder/placeOrderModel';
 
 const PlaceOrderScreen=()=>{
   return (

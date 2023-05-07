@@ -9,10 +9,10 @@ import {
   TextArea,
   VStack,
 } from "native-base";
-import Buttone from "./Buttone";
-import Rating from "./Rating";
+import Buttone from "../Buttone";
+import Rating from "../Rating";
 import Message from "./Message";
-import { Colors } from "../data/data";
+import { Colors } from "../../data/data";
 
 export default function Review() {
   const { rate, setRate } = useState("");

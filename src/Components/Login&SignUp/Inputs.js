@@ -1,5 +1,5 @@
 import React from "react";
-import { Colors } from '../data/data';
+import { Colors } from '../../data/data';
 import { View,Text,StyleSheet,TextInput } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome5';
 const Inputs =({label , iconName, password ,error, onFocus = () =>{}, ...props }) => {

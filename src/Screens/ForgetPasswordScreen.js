@@ -2,8 +2,8 @@ import { React } from "react";
 import { Box, Button, Heading, Image, Input, Pressable, VStack, Text } from "native-base";
 import { Colors } from "../data/data";
 import { useState } from "react";
-import Inputs from "../Components/Inputs"
-import Loader from "../Components/Loader";
+import Inputs from "../Components/Login&SignUp/Inputs"
+import Loader from "../Components/Login&SignUp/Loader";
  import Buttone from "../Components/Buttone";
  import { sendPasswordResetEmail } from "firebase/auth";
  import { auth } from "../../firebase";
