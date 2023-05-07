@@ -2,9 +2,9 @@ import { Box, Button, Heading, Image, Input, Pressable, ScrollView, Text , VStac
 import { React } from 'react';
 import { Colors, isValidDate, minPassLen, minPhoneLen } from '../data/data';
 import { useState } from "react";
-import Inputs from "../Components/Inputs"
+import Inputs from "../Components/Login&SignUp/Inputs"
 import Buttone from '../Components/Buttone';
-import Loader from '../Components/Loader';
+import Loader from '../Components/Login&SignUp/Loader';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useEffect } from "react";
 import { auth, db, setUser } from '../../firebase';

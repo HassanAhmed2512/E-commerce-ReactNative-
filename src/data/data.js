@@ -19,11 +19,81 @@ const products = [
         countInStock : 5 ,
         rating : 3 ,
         numReviews : 4 
+    },
+    {
+        _id:"3",
+        name : "this is just dummy name",
+        image : "https://media.cnn.com/api/v1/images/stellar/prod/allbirds-sneakers-review-wool-runnerjpg.jpg?q=h_1090,w_1938,x_0,y_0",
+        descrption : "this is just dummy desk" ,
+        price : 500 ,
+        countInStock : 5 ,
+        rating : 3 ,
+        numReviews : 4 
+    },
+    {
+        _id:"4",
+        name : "this is just dummy name",
+        image : "https://media.cnn.com/api/v1/images/stellar/prod/allbirds-sneakers-review-wool-runnerjpg.jpg?q=h_1090,w_1938,x_0,y_0",
+        descrption : "this is just dummy desk" ,
+        price : 500 ,
+        countInStock : 5 ,
+        rating : 3 ,
+        numReviews : 4 
+    },
+    {
+        _id:"5",
+        name : "this is just dummy name",
+        image : "https://media.cnn.com/api/v1/images/stellar/prod/allbirds-sneakers-review-wool-runnerjpg.jpg?q=h_1090,w_1938,x_0,y_0",
+        descrption : "this is just dummy desk" ,
+        price : 500 ,
+        countInStock : 5 ,
+        rating : 3 ,
+        numReviews : 4 
+    },
+    {
+        _id:"6",
+        name : "this is just dummy name",
+        image : "https://media.cnn.com/api/v1/images/stellar/prod/allbirds-sneakers-review-wool-runnerjpg.jpg?q=h_1090,w_1938,x_0,y_0",
+        descrption : "this is just dummy desk" ,
+        price : 500 ,
+        countInStock : 5 ,
+        rating : 3 ,
+        numReviews : 4 
+    },
+    {
+        _id:"7",
+        name : "this is just dummy name",
+        image : "https://media.cnn.com/api/v1/images/stellar/prod/allbirds-sneakers-review-wool-runnerjpg.jpg?q=h_1090,w_1938,x_0,y_0",
+        descrption : "this is just dummy desk" ,
+        price : 500 ,
+        countInStock : 5 ,
+        rating : 3 ,
+        numReviews : 4 
+    },
+    {
+        _id:"8",
+        name : "this is just dummy name",
+        image : "https://media.cnn.com/api/v1/images/stellar/prod/allbirds-sneakers-review-wool-runnerjpg.jpg?q=h_1090,w_1938,x_0,y_0",
+        descrption : "this is just dummy desk" ,
+        price : 500 ,
+        countInStock : 5 ,
+        rating : 3 ,
+        numReviews : 4 
+    },
+    {
+        _id:"9",
+        name : "this is just dummy name",
+        image : "https://media.cnn.com/api/v1/images/stellar/prod/allbirds-sneakers-review-wool-runnerjpg.jpg?q=h_1090,w_1938,x_0,y_0",
+        descrption : "this is just dummy desk" ,
+        price : 500 ,
+        countInStock : 5 ,
+        rating : 3 ,
+        numReviews : 4 
     }
+
 ]
 
 const Colors = {
-
     main : "#48B600",
     white : "#FFFFFF",
     black : "#000000" ,
@@ -164,6 +234,29 @@ export const calculateAge=(str)=>{
     }
     return age.toString(10);
   }
+
+  const orderInput = [
+    {
+      label: "ENTER CITY",
+      type: "text",
+    },
+    {
+      label: "ENTER REGION",
+      type: "text",
+    },
+    {
+      label: "ENTER POSTAL CODE",
+      type: "text",
+    },
+    {
+      label: "ENTER ADDRESS",
+      type: "text",
+    },
+    {
+      label: "Chose Payment",
+      type: "select",
+    }
+  ];
 export const minPassLen=6;
 export const minPhoneLen=11;
-export {Colors , products, orderInfos}
+export {Colors , products, orderInfos ,orderInput}

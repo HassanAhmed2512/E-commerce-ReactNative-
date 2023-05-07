@@ -1,6 +1,6 @@
 import { Box, HStack, Pressable, Text, View } from "native-base";
 import { React } from "react";
-import { Colors } from "../data/data";
+import { Colors } from "../../data/data";
 import { Input } from "native-base";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";

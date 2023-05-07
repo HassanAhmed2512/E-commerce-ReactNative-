@@ -1,6 +1,6 @@
 import { Box, Button, Center, FlatList, HStack, Pressable, Text, VStack, View, Image} from 'native-base';
 import { React } from 'react';
-import { products } from '../data/data';
+import { products } from '../../data/data';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 const[mb]=[3];

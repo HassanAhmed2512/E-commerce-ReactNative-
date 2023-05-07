@@ -13,11 +13,10 @@ import NumericInput from "react-native-numeric-input";
 import { Colors } from "../data/data";
 import { useNavigation } from "@react-navigation/native";
 import Rating from "../Components/Rating";
-import Review from './../Components/Review';
+import Review from './../Components/SingleProduct/Review';
 
 function SingleProductScreen({route}) {
   const { value, setValue } = useState(0);
-  
   const navegation = useNavigation();
   const product = route.params;
 
