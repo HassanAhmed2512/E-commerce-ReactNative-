@@ -4,9 +4,9 @@ const products = [
         _id:"1",
         name : "this is just dummy name",
         image : "https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/1f087891-6787-423d-8e0a-0fa8220e64bc/go-flyease-easy-on-off-shoes-6nd2cc.png",
-        descrption : "this is just dummy desk" ,
+        descrption : "this is just dummy desk this is just dummy deskthis is just dummy deskthis is just dummy deskthis is just dummy deskthis is just dummy deskthis is just dummy deskthis is just dummy deskthis is just dummy deskthis is just dummy deskthis is just dummy deskthis is just dummy desk" ,
         price : 100 ,
-        countInStock : 3 ,
+        countInStock : 0 ,
         rating : 4 ,
         numReviews : 4 
     } ,

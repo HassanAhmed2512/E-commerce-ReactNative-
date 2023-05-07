@@ -9,28 +9,25 @@ import {
   Button,
 } from "native-base";
 import { React, useState } from "react";
-import { Rating } from "../Components/Rating";
-import { Review } from "../Components/Review";
 import NumericInput from "react-native-numeric-input";
 import { Colors } from "../data/data";
+import { useNavigation } from "@react-navigation/native";
+import Rating from "../Components/Rating";
+import Review from './../Components/Review';
 
-function SingleProductScreen({productImage, productTitle, productPrice, productDescription}) {
+function SingleProductScreen({route}) {
   const { value, setValue } = useState(0);
-  const isLocalImage = productImage.includes(".jpg") || productImage.includes(".png");
+  
+  const navegation = useNavigation();
+  const product = route.params;
 
-  const getImageSource = () => {
-    if (isLocalImage) {
-      return require(productImage);
-    } else {
-      return { uri: productImage };
-    }
-  };
+
 
   return (
     <Box safeArea flex={1} bg={Colors.white}>
       <ScrollView px={5} showsVerticalScrollIndicator={false}>
         <Image
-          source={getImageSource()}
+          source={{uri : product.image}}
           alt="Product Image"
           w="full"
           h={300}
@@ -38,42 +35,51 @@ function SingleProductScreen({productImage, productTitle, productPrice, productD
         />
 
         <Heading bold fontSize={15} mb={2} lineHeight={22}>
-          {productTitle}
+          {product.name}
         </Heading>
 
-        <Rating value={4} />
+        <Rating value={product.rating}  text={`${product.numReviews} reviews`} />
+
 
         <HStack space={2} alignItems="center" my={5}>
-          <NumericInput
-            value={value}
-            onChange={(e) => setValue(e)}
-            totalWidth={140}
-            totalHeight={22}
-            iconSize={25}
-            step={1}
-            maxValue={20}
-            minValue={0}
-            borderColor={Colors.deepGray}
-            rounded
-            textColor={Colors.black}
-            iconStyle={{ color: Colors.white }}
-            rightButtonBackgroundColor={Colors.subGreen}
-            leftButtonBackgroundColor={Colors.subGreen}
-          />
+          {
+            product.countInStock > 0 ? (
+              <NumericInput
+              value={value}
+              totalWidth={140}
+              totalHeight={22}
+              iconSize={25}
+              step={1}
+              maxValue={product.countInStock}
+              minValue={0}
+              borderColor={Colors.deepGray}
+              rounded
+              textColor={Colors.black}
+              iconStyle={{ color: Colors.white }}
+              rightButtonBackgroundColor={Colors.main}
+              leftButtonBackgroundColor={Colors.main}
+            />
+            ) : (   
+            <Heading bold color={Colors.red} italic fontSize={12}>
+              Out Of Stock
+            </Heading>
+            )
+          }
+
           <Spacer />
           <Heading bold color={Colors.black} fontSize={19}>
-            {productPrice}
+            {product.price}
           </Heading>
         </HStack>
 
         <Text lineHeight={24} fontSize={12}>
-          {productDescription}
+          {product.descrption}
         </Text>
 
-        <Button bg={Colors.subGreen} color={Colors.white} mt={10}>
+        <Button bg={Colors.main} color={Colors.white} mt={10}>
           ADD TO CARD
         </Button>
-
+ 
         <Review />
       </ScrollView>
     </Box>
