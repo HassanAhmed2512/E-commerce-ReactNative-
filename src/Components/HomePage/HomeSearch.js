@@ -4,9 +4,29 @@ import { Colors } from "../../data/data";
 import { Input } from "native-base";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { useEffect } from "react";
+import { useState } from "react";
+import { auth, db } from "../../../firebase";
+import { doc, onSnapshot } from "firebase/firestore";
 
-function HomeSearch() {
+function HomeSearch({searchText,setSearchText}) {
+  const[cart,setCart]=useState(0);
+  // works
   const navegation = useNavigation();
+  useEffect(() => {
+    if(!auth.currentUser) return;
+  
+    const docRef=doc(db, 'test-users', auth.currentUser.uid);
+
+    const unsubscribe = onSnapshot(docRef,(doc)=>{
+      const res=doc.data();
+      setCart(res.cart);
+    })
+    return () => unsubscribe();
+  }, [auth.currentUser]);
+  let sum=0;
+  for(let i=0;i<cart.length;i++)sum+=(cart[i].quantity);
+  
   return (
     <HStack
       space={3}
@@ -19,6 +39,10 @@ function HomeSearch() {
     >
       <Input
         placeholder="Search Here ... "
+        value={searchText}
+        onChangeText={(text)=>{
+          setSearchText(text);
+        }}
         w="85%"
         bg={Colors.white}
         type="Search"
@@ -27,7 +51,7 @@ function HomeSearch() {
         borderWidth={0}
         _focus={{ bg: Colors.white }}
       />
-      <Pressable ml={3} onPress={()=>navegation.navigate("Cart")} >
+      <Pressable m={3} onPress={()=>navegation.navigate("Cart")}>
         <FontAwesome5 name="shopping-basket" size={24} color={Colors.white} />
         <Box
           px={1}
@@ -38,7 +62,7 @@ function HomeSearch() {
           bg={Colors.red}
           _text={{ color: Colors.white, fontSize: "11px" }}
         >
-         99
+         {sum}
         </Box>
       </Pressable>
     </HStack>

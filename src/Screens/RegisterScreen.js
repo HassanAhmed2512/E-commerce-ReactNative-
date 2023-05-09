@@ -90,13 +90,13 @@ import { getAuth , signInWithPopup, GoogleAuthProvider , onAuthStateChanged } fr
   
   
   const register = () => {
-    console.log(inputs.firstName)
-    console.log(inputs.lastName)
-    console.log(inputs.password)
-    console.log(inputs.confirmPassword)
-    console.log(inputs.email)
-    console.log(inputs.birthDate)
-    console.log(inputs.phone)
+    // console.log(inputs.firstName)
+    // console.log(inputs.lastName)
+    // console.log(inputs.password)
+    // console.log(inputs.confirmPassword)
+    // console.log(inputs.email)
+    // console.log(inputs.birthDate)
+    // console.log(inputs.phone)
     
     const {email,password}=inputs;
     auth
@@ -106,11 +106,11 @@ import { getAuth , signInWithPopup, GoogleAuthProvider , onAuthStateChanged } fr
           const user = userCredentials.user;
           // alert("signed up succesfully with:"+user.email)
           const res=await setUser(db,'test-users',auth.currentUser.uid,{
-            ...inputs,photoUrl:""
+            ...inputs,photoUrl:"",cart:[],orders:[],credit:5000.0
           })
-          console.log("Sign up completed succesfully for user(user object,id):");
-          console.log(user);
-          console.log(auth.currentUser.uid)
+          // console.log("Sign up completed succesfully for user(user object,id):");
+          // console.log(user);
+          // console.log(auth.currentUser.uid)
           return res;
         }
         setisAuth(true);

@@ -13,16 +13,36 @@ import {
 import { SwipeListView } from "react-native-swipe-list-view";
 import React from "react";
 import FontAwesome, { FontAwesome5 } from "@expo/vector-icons";
-import { products, Colors } from "../../data/data";
+import { Colors } from "../../data/data";
+import { useState } from "react";
+import { useEffect } from "react";
+import { auth, db, getUser, updateUser } from "../../../firebase";
 
-const CartItem = () => {
+function removeFromCart(cart,product) {
+  // Find the index of the product in the cart
+  const {id,quantity,price}=product;
+  const productIndex = cart.findIndex(eachProd => eachProd.id === id);
+  let newCart;
+  if (productIndex >= 0) {
+    newCart = [...cart]; // Create a new array with the same elements as the original cart
+    newCart[productIndex] = { ...newCart[productIndex], quantity: newCart[productIndex].quantity - 1 };
+
+    if (newCart[productIndex].quantity === 0) {
+      newCart.splice(productIndex, 1);
+    }
+  }
+  return newCart; // Return the new array
+}
+const CartItem = ({cart,setCart}) => {
+  const products=cart;
+
   const Swiper = () => (
     <SwipeListView
       rightOpenValue={-50}
       previewRowKey="0"
       previewOpenValue={-40}
       previewOpenDelay={-3000}
-      data={products.slice(0, 2)}
+      data={products }
       renderItem={renderItems}
       renderHiddenItem={renderHiddenItems}
       showsVerticalScrollIndicator={false}
@@ -66,7 +86,7 @@ const CartItem = () => {
                 color: Colors.white,
               }}
             >
-              5
+              {data.item.quantity}
             </Button>
           </Center>
         </HStack>
@@ -74,7 +94,7 @@ const CartItem = () => {
     </Pressable>
   );
 
-  const renderHiddenItems = () => (
+  const renderHiddenItems = (data) => (
     <Pressable
       w={50}
       roundedTopRight={10}
@@ -83,6 +103,16 @@ const CartItem = () => {
       ml="auto"
       justifyContent="center"
       bg={Colors.red}
+      onPress={()=>{
+        // console.log('hello world');
+        const ff=async()=>{
+          const userData=await getUser(db,'test-users',auth.currentUser.uid);
+          const newCart=removeFromCart([...cart],data.item );
+          const res=await updateUser(db,'test-users',auth.currentUser.uid,{...userData,cart:newCart } );
+          setCart(newCart);
+        }
+        ff();
+      }}
     >
       <Center alignItems="center" space={2}>
         <FontAwesome5 name="trash" size={30} color={Colors.white} />

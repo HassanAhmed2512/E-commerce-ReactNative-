@@ -2,10 +2,11 @@
 // import * as firebase from "firebase/app";
 // import firebase from "firebase/compat/app";
 import firebase from 'firebase/compat/app';
-import { deleteDoc, doc, getDoc, getFirestore, setDoc, updateDoc } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDoc, getDocs, getFirestore, setDoc, updateDoc } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+import { myProducts, products } from './src/data/data';
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -53,7 +54,7 @@ const getUser=async(db,collection,id,obj=null)=>{
     // console.log("Document data:", docSnap.data());
     return docSnap.data();
   }
-  console.log("No such document!");
+  // console.log("No such document!");
   return null;
 }
 const updateUser=async(db,collection,id,obj=null)=>{
@@ -65,7 +66,7 @@ const updateUser=async(db,collection,id,obj=null)=>{
   // cant update with an empty object
   // for some other reason we might also return false
   if(!obj){
-    console.log("attempted to write an empty object");
+    // console.log("attempted to write an empty object");
     return false;
   }
   const docRef = doc(db, collection, id);
@@ -97,7 +98,7 @@ const uploadImage=async(uri,dir,id)=>{
   let dwlUrl=null;
   uploadBytes(storageRef, blob).then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url) => {
-        console.log(url);
+        // console.log(url);
         dwlUrl=url;
       });
   });
@@ -109,15 +110,34 @@ const isFile = async (path) => {
   let dwlUrl=null;
   getDownloadURL(ref(storage, path))
   .then((url) => {
-    console.log(`File at ${path} exists with URL: `, url);
+    // console.log(`File at ${path} exists with URL: `, url);
     dwlUrl=url;
     return true;
   })
   .catch((error) => {
-    console.log(`File at ${path} does not exist: `, error.message);
+    // console.log(`File at ${path} does not exist: `, error.message);
     return false;
   });
   return dwlUrl;
 };
+export const uploadProducts=async()=>{
+  for(en of products){
+    if(!(await getUser(db,'products',en.id) ) )
+      await setUser(db,'products',en.id,{...en,image:en.image,
+      reviews:["The shoe is a comfortable and stylish option for everyday wear. Its cushioned sole provides excellent support and makes it easy to walk or stand for long periods of time, while its sleek design adds a touch of sophistication to any outfit. Whether you're running errands or going out for a night on the town, this shoe is a great choice for both comfort and style",
+      "The camera is a fantastic piece of equipment that captures high-quality photos and videos. Its intuitive controls and compact size make it easy to use and carry around, while its advanced features provide a range of creative options for photographers of all skill levels. Overall, it's an excellent choice for anyone looking to capture their memories with stunning clarity and detail.",
+      "The phone is a powerful and versatile device that offers a range of features for both work and play. Its high-resolution display provides a crisp and clear viewing experience, while its fast processor and ample storage allow for smooth performance and easy multitasking. The phone's camera is also top-notch, with advanced features that capture stunning photos and videos. Overall, it's a great choice for anyone looking for a reliable and feature-packed smartphone."]
+    })
+  }
+}
+export const getProducts=async()=>{
+  
+  const querySnapshot = await getDocs(collection(db, "products"));
+  let arr=[];
+  querySnapshot.forEach((doc) => {
+    arr.push(doc.data() );
+  });
+  return arr;
+}
 
 export { auth, db, storage,setUser, getUser, updateUser, deleteUser, uploadImage, isFile};
