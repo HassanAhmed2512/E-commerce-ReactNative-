@@ -18,7 +18,6 @@ export default function UploadImage() {
         aspect: [4, 3],
         quality: 1,
       });
-    // console.log(result);
 
     if (!result.canceled) {
         const response = await fetch(result.assets[0].uri);
@@ -31,11 +30,6 @@ export default function UploadImage() {
               setImage(url);
             });
         });
-        // return downloadURL;
-        // setImage(result.assets[0].uri);
-        // const res=await uploadImage(result.assets[0].uri,'user-images',auth.currentUser.uid);
-        // console.log(res);
-        // setImage(res );
     }
   };
   useEffect(()=>{
@@ -48,13 +42,9 @@ export default function UploadImage() {
         .catch((error) => {
             return false;
         });
-        // const res=await isFile(`user-images/${auth.currentUser.uid}`);
-        // console.log(res);
-        // setImage(res);
     }
-    ff();
+    ff().catch((error) => {console.log("ff 1: ", error)});;
   },[])
-  console.log(image)
   return (
             <View style={imageUploaderStyles.container}>
                 {

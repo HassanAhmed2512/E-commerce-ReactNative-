@@ -26,7 +26,6 @@ const ForgetPasswordScreen = ({navigation}) => {
       isValid = false;
     } else if (inputs.email.match(/\s+@\s+\.\s+/)) {
       handleError("please enter valid email. ", "email");
-      console.log("error");
       isValid = false;
     }
     if (isValid)
@@ -89,10 +88,10 @@ const ForgetPasswordScreen = ({navigation}) => {
         </VStack>
         <Buttone my={30} rounded={50} bg={Colors.white} onPress={validate} childern={"SEND"} />
         <Pressable mt={4} onPress={()=>{navigation.navigate('Register');}}  >
-          <Text color={Colors.lightblack}>SIGN UP</Text>
+          <Text color={Colors.lavender}>SIGN UP</Text>
         </Pressable>
         <Pressable mt={4} onPress={()=>{navigation.navigate('Login');}}  >
-          <Text color={Colors.lightblack}>SIGN IN</Text>
+          <Text color={Colors.lavender}>SIGN IN</Text>
         </Pressable>
       </Box>
     </Box>

@@ -42,11 +42,11 @@ function ShippingScreen() {
                     variant="filled"
                     borderWidth={0.2}
                     borderColor={Colors.main}
-                    bg={Colors.subGreen}
+                    bg={Colors.lavender}
                     py={4}
                     color={Colors.main}
                     _focus={{
-                      bg: Colors.subGreen,
+                      bg: Colors.lavender,
                       borderWidth: 1,
                       borderColor: Colors.main,
                     }}

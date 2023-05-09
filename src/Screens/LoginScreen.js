@@ -13,7 +13,7 @@ const provider = new GoogleAuthProvider();
 
 function LoginScreen({navigation}) {
   const [inputs, setInputs] = useState({
-    email: "z@a.com",
+    email: "test@a.com",
     password: "123456",
   });
   const [errors, setErrors] = useState({});
@@ -164,9 +164,9 @@ function LoginScreen({navigation}) {
           /> */}
         </VStack>
         <Buttone
-          my={30} rounded={50} bg={Colors.white} onPress={validate} childern={"SIGN IN"} mt={5} />
+          my={30} rounded={50} bg={Colors.lavender} onPress={validate} childern={"SIGN IN"} mt={5} />
           <Buttone
-          my={30} rounded={50} bg={Colors.blue} onPress={GoogleAuth} childern={"SIGN IN With Google"} mt={5} />
+          my={30} rounded={50} bg={Colors.lavender} onPress={GoogleAuth} childern={"SIGN IN With Google"} mt={5} />
         <Pressable mt={4} onPress={()=>{navigation.navigate('Register');}}>
           <Text color={Colors.lightblack}>SIGN UP</Text>
         </Pressable>

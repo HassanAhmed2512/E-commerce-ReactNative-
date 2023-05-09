@@ -7,13 +7,11 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 
 function HomeProducts({searchText,setSearchText,products}) {
-  console.log(products.length);
   const[displayProducts,setDisplayProducts]=useState([]);
   const navegation=useNavigation();
   useEffect(()=>{
     if(!products.length )return;
     setDisplayProducts(products.filter((product) => {
-      // console.log(product.name.toLowerCase() );
       return product.name.toLowerCase().includes(searchText);
     }) );
   },[searchText,products]);

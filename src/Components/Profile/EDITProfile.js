@@ -12,15 +12,17 @@ import UploadImage from "./UserPhoto";
 const EDITProfile = () => {
     const[showModal,setShowModal]=useState(false);
     const[userData,setUserData]=useState({});
+
     const fetchData = async () => {
-        // console.log(auth.currentUser.uid);
-        const res= await getUser(db,'test-users',auth.currentUser.uid);
+        console.log("fetching data");
+        const res= await getUser(db,'test-users','bDLRie4vbvTa8883dMEwO6jUeLs2');
         setUserData(res);
         return res;
     };
     useEffect(() => {
+        // fetchData().catch((error) => {console.log("fetchData: ", error)});
         fetchData();
-    }, []);
+    }, [auth.currentUser.uid]  );
     return(
         <Box h='full' bg={Colors.white} px={5}>
             <ScrollView showsVerticalScrollIndicator={false}>
@@ -45,20 +47,18 @@ const EDITProfile = () => {
                                     name={i.label}
                                     value={!userData[i.label]&&i.label!=="age"?"":(i.label==="age"?calculateAge(userData.birthDate):userData[i.label] ) }
                                     onChangeText={(text)=>{
-                                        // console.log(await getUser(db,'test-users',testId) );
-                                        // console.log(userData);
                                         setUserData({...userData, [i.label]:text } );
                                     }}
                                     isDisabled
                                     borderWidth={0.2}
-                                    bg={Colors.subGreen}
+                                    bg={Colors.lavender}
                                     borderColor= {Colors.main}
                                     py={4}
                                     type={i.type}
                                     color={Colors.main}
                                     fontSize={15}
                                     _focus={{
-                                        bg:Colors.subGreen,
+                                        bg:Colors.lavender,
                                         borderColor: Colors.main,
                                         borderWidth: 1
                                       }}

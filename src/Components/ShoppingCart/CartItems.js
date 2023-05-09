@@ -59,7 +59,7 @@ const CartItem = ({cart,setCart}) => {
           rounded={10}
           overflow="hidden"
         >
-          <Center w="25%" bg={Colors.deepGray}>
+          <Center w="25%" bg={Colors.lavender}>
             <Image
               source={{ uri: data.item.image }}
               alt={data.item.name}
@@ -104,14 +104,13 @@ const CartItem = ({cart,setCart}) => {
       justifyContent="center"
       bg={Colors.red}
       onPress={()=>{
-        // console.log('hello world');
         const ff=async()=>{
-          const userData=await getUser(db,'test-users',auth.currentUser.uid);
+          const userData=await getUser(db,'test-users',auth.currentUser.uid).catch(error => { console.log("getUser: ", error) });
           const newCart=removeFromCart([...cart],data.item );
-          const res=await updateUser(db,'test-users',auth.currentUser.uid,{...userData,cart:newCart } );
+          const res=await updateUser(db,'test-users',auth.currentUser.uid,{...userData,cart:newCart } ).catch(error => { console.log("updateUser: ", error) });
           setCart(newCart);
         }
-        ff();
+        ff().catch((error) => {console.log("ff 2: ", error)});;
       }}
     >
       <Center alignItems="center" space={2}>

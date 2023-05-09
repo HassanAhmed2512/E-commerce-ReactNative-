@@ -25,7 +25,10 @@ function HomeSearch({searchText,setSearchText}) {
     return () => unsubscribe();
   }, [auth.currentUser]);
   let sum=0;
-  for(let i=0;i<cart.length;i++)sum+=(cart[i].quantity);
+  
+    
+    for(let i=0;i<cart.length;i++)sum+=(cart[i].quantity);
+  
   
   return (
     <HStack

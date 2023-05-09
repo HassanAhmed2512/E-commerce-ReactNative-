@@ -1,7 +1,9 @@
 import { Box, Button, Center, FlatList, HStack, Pressable, Text, VStack, View, Image} from 'native-base';
-import { React } from 'react';
-import { products } from '../../data/data';
+import { React, useEffect, useState } from 'react';
+// import { products } from '../../data/data';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { auth, db, getUser } from '../../../firebase';
+import { collection } from 'firebase/firestore';
 
 const[mb]=[3];
 const[bg1,shadow1,rounded1,overflow1,mt1]=[Colors.white,1,10,"hidden",2];
@@ -14,11 +16,20 @@ const[bg7,_pressed7,_text7]=[Colors.main,Colors.main,Colors.white];
 
 const OrderItem=({})=>{
   const imageUrl = 'https://example.com/image.jpg';
+  const[cart,setCart]=useState([] );
+  useEffect(()=>{
+    const ff=async()=>{
+      const res=await getUser(db,'test-users',auth.currentUser.uid);
+      setCart(res.cart);
+    }
+    ff();
+  },[auth.currentUser.uid] )
+  const products=cart;
   return (
     <FlatList
     showsHorizontalScrollIndicator={false}
     // data={apicall() }
-    data={products.slice(0, products.length) }
+    data={products}
     keyExtractor={item=>{
       // console.log(item.image);
       return item._id;
@@ -75,15 +86,15 @@ const OrderItem=({})=>{
                 // this doesnt work
                 // bg={bg7}
                 // this does
-                bg={"#48B600"}
+                bg={"#000000"}
 
                 // here the properties receive object not literals
                 // _pressed={{bg:_pressed7}}
-                _pressed={{bg:"#48B600"}}
+                _pressed={{bg:"#000000"}}
                 // _text={{bg:_text7}}
                 // _text={{bg:"#FFFFFF"}}
               >
-                5
+                {obj.item.quantity}
               </Button>
             </Center>
           </HStack>

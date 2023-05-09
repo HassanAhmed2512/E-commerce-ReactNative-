@@ -29,7 +29,7 @@ const OrderInfo=({icon,title,subTitle,text,success,danger})=>{
         px={px}
     >
         <Center
-            bg={bg3}
+            bg={"#000000"}
             w={w3}
             h={h3}
             rounded={rounded3}

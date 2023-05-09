@@ -40,16 +40,6 @@ function SingleProductScreen({route}) {
   const navegation = useNavigation();
   const product = route.params;
 
-  // useEffect(()=>{
-  //   if(!auth.currentUser )return;
-
-  //   const ff=async()=>{
-  //     const res=await getUser(db,'test-users',auth.currentUser.uid );
-  //     console.log(res.cart);
-  //     setCart(res.cart);
-  //   }
-  //   ff();
-  // },[auth.currentUser.uid]);
   useEffect(() => {
     if(!auth.currentUser) return;
     const docRef=doc(db, 'test-users', auth.currentUser.uid);
@@ -118,14 +108,13 @@ function SingleProductScreen({route}) {
 
         <Button bg={Colors.main} color={Colors.white} mt={10}
           onPress={()=>{
-            // console.log(cart);
             const ff=async()=>{
-              const userData=await getUser(db,'test-users',auth.currentUser.uid);
+              const userData=await getUser(db,'test-users',auth.currentUser.uid).catch((error) => {console.log("getuser: ", error)});;
               const newCart=addToCart([...cart],product);
-              const res=await updateUser(db,'test-users',auth.currentUser.uid,{...userData,cart:newCart});
+              const res=await updateUser(db,'test-users',auth.currentUser.uid,{...userData,cart:newCart}).catch((error) => {console.log("updateUser: ", error)});;
               setCart(newCart);
             }
-            ff();
+            ff().catch((error) => {console.log("ff 4: ", error)});;
           }}
         >
           ADD TO CART
