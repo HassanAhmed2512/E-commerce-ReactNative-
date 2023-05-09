@@ -47,7 +47,7 @@ function CartScreen() {
   for(let i=0;i<cart.length;i++)price+=(cart[i].quantity*cart[i].price);
 
   return (
-    <Box flex={1} safeAreaTop bg={Colors.subGreen}>
+    <Box flex={1} safeAreaTop bg={Colors.lavender}>
       {/* The Header Of The Page */}
       <Center w="full" py={5}>
         <Text color={Colors.black} fontSize={20} bold>

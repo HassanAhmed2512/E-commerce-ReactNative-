@@ -18,7 +18,7 @@ function ProfileScreen ({navigation}) {
   };
 
   useEffect(() => {
-    fetchData();
+    fetchData().catch((error) => {console.log("fetchData: ", error)});;
   }, []);
 
   const handleSignOut = () => {
@@ -34,10 +34,10 @@ function ProfileScreen ({navigation}) {
       <Box bg={Colors.main} py={6}>
         <Center>
           <UploadImage/>
-          <Heading bold fontSize={15} isTruncated my={2} color={Colors.white}>
+          <Heading bold fontSize={15} isTruncated my={2} color={Colors.lavender}>
             {userData.firstName}
           </Heading>
-          <Text italic fontSize={10} color={Colors.white}>
+          <Text italic fontSize={10} color={Colors.lavender}>
             {userData.birthDate}
           </Text>
         </Center>

@@ -32,7 +32,7 @@ export default function Review() {
         bold
       /> */}
 
-      <Box p={3} bg={Colors.deepGray} mt={5} rounded={5}>
+      <Box p={3} bg={Colors.lavender} mt={5} rounded={5}>
         <Heading fontSize={15} color={Colors.black}>
           John Doe
         </Heading>
@@ -66,13 +66,13 @@ export default function Review() {
             </FormControl.Label>
 
             <Select
-              bg={Colors.subGreen}
+              bg={Colors.lavender}
               borderWidth={0}
               rounded={5}
               py={4}
               placeholder="Choose Rate"
               _selectedItem={{
-                bg: Colors.subGreen,
+                bg: Colors.lavender,
                 endIcon: <CheckIcon size={3} />,
               }}
               selectedValue={rate}
@@ -99,10 +99,10 @@ export default function Review() {
               w="full"
               placeholder="This is an awesome product ...."
               borderWidth={0}
-              bg={Colors.subGreen}
+              bg={Colors.lavender}
               py={4}
               _focus={{
-                bg: Colors.subGreen,
+                bg: Colors.lavender,
               }}
               value={comment}
             />

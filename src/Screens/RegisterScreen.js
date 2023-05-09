@@ -90,14 +90,6 @@ import { getAuth , signInWithPopup, GoogleAuthProvider , onAuthStateChanged } fr
   
   
   const register = () => {
-    // console.log(inputs.firstName)
-    // console.log(inputs.lastName)
-    // console.log(inputs.password)
-    // console.log(inputs.confirmPassword)
-    // console.log(inputs.email)
-    // console.log(inputs.birthDate)
-    // console.log(inputs.phone)
-    
     const {email,password}=inputs;
     auth
       .createUserWithEmailAndPassword(email, password)
@@ -107,14 +99,11 @@ import { getAuth , signInWithPopup, GoogleAuthProvider , onAuthStateChanged } fr
           // alert("signed up succesfully with:"+user.email)
           const res=await setUser(db,'test-users',auth.currentUser.uid,{
             ...inputs,photoUrl:"",cart:[],orders:[],credit:5000.0
-          })
-          // console.log("Sign up completed succesfully for user(user object,id):");
-          // console.log(user);
-          // console.log(auth.currentUser.uid)
+          }).catch((error) => {console.log("SetUser: ", error)});
           return res;
         }
         setisAuth(true);
-        ff(); 
+        ff().catch((error) => {console.log("ff 3: ", error)});; 
       })
       .catch(error => alert(error.message))
       setLoading(true);
@@ -262,12 +251,10 @@ import { getAuth , signInWithPopup, GoogleAuthProvider , onAuthStateChanged } fr
       </VStack>
       </ScrollView>
       <Buttone my={30} w="10%" rounded={50} bg={Colors.white} onPress={()=>{
-        // console.log(isValidDate(inputs.birthDate) );
         validate();
-        // register();
       }} childern={"SIGN UP"} mt={5} />
       <Pressable mt={4} onPress={()=>{navigation.navigate('Login');}} >
-        <Text color={Colors.blue}>LOG IN</Text>
+        <Text color={Colors.lavender}>LOG IN</Text>
       </Pressable>
     </Box>
   </Box>

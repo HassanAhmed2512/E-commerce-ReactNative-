@@ -32,7 +32,7 @@ export default function Tabs() {
         <TabBar {...props} 
         tabStyle= {styles.tabStyle} 
         indicatorStyle={{backgroundColor:Colors.black}}
-        activeColor= {Colors.main}
+        activeColor= {Colors.red}
         inactiveColor= {Colors.white}
         renderLabel= {({route,color}) =>(<Text style={{color,...styles.text}}>{route.title}</Text>)}
         />

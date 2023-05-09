@@ -6,13 +6,12 @@ import { FontAwesome, FontAwesome5, Ionicons } from '@expo/vector-icons';
 import OrderItem from '../Components/PlaceOrder/OrderItem';
 import PlaceOrderModel from '../Components/PlaceOrder/placeOrderModel';
 
-const PlaceOrderScreen=({OrderInfo})=>{
+const PlaceOrderScreen=({route})=>{
   const product = route.params;
-  
   return (
     <NativeBaseProvider>
       <Box
-        bg="green.100"
+        bg="#D8D4F2"
         // flex=1 increases height of scrollview, fix?
         // flex=1 make the second box appear, why does it not appear
         flex={1}

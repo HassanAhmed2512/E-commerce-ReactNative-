@@ -18,14 +18,12 @@ const UpdateProfile=({tempUserData,fetchData})=>{
         setUserData(tempUserData);
     }, [tempUserData]);
     const locUpdateUser=()=>{
-        const ff=async()=>{
+        const updateUser=async()=>{
             const res1=await updateUser(db,'test-users',auth.currentUser.uid,userData );
             const res2=await fetchData();
-            console.log("updated user succesfully with id:");
-            console.log(auth.currentUser.uid);
             return res1;
         }
-        ff();
+        updateUser().catch((error) => {console.log("updateUser: ", error)});;
     }
     return(
         <Center>
@@ -82,8 +80,6 @@ const UpdateProfile=({tempUserData,fetchData})=>{
                                 if(i.label==="password") return;
                                 if(i.label==="email") return;
 
-                                // console.log(await getUser(db,'test-users',testId) );
-                                // console.log(userData);
                                 setUserData({...userData, [i.label]:text } );
                             }}
                             isDisabled

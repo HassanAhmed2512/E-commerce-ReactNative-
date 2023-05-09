@@ -4,12 +4,12 @@
     "slug": "E-commerce",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.jpg",
+    "icon": "./assets/icons.jpg",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/icon.jpg",
+      "image": "./assets/icons.jpg",
       "resizeMode": "contain",
-      "backgroundColor": "#48B600"
+      "backgroundColor": "#000000"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -19,8 +19,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#48B600"
+        "foregroundImage": "./assets/icons.jpg",
+        "backgroundColor": "#000000"
       }
     },
     "web": {

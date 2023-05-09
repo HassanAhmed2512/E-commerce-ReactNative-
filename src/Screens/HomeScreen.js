@@ -10,15 +10,15 @@ function HomeScreen() {
 
   const[products,setProducts]=useState([]);
   useEffect(()=>{    
-    const ff=async()=>{
-      await uploadProducts();
+    const initGetProduct = async()=>{
+      await uploadProducts().catch((error) => {console.log("uploadProducts: ", error)});
       const res=await getProducts();
       setProducts(res);
     }
-    ff();
+    initGetProduct().catch((error) => {console.log("initGetProduct: ", error)});;
   },[]);
   return (
-    <Box flex={1} bg={Colors.subGreen} >
+    <Box flex={1} bg={Colors.lavender} >
       <HomeSearch 
         searchText={searchText}
         setSearchText={setSearchText}
