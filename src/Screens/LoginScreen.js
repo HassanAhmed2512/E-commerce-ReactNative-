@@ -13,8 +13,8 @@ const provider = new GoogleAuthProvider();
 
 function LoginScreen({navigation}) {
   const [inputs, setInputs] = useState({
-    email: "",
-    password: "",
+    email: "z@a.com",
+    password: "123456",
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] =useState(false);
@@ -121,6 +121,7 @@ function LoginScreen({navigation}) {
               placeholder=" Enter Your Email"
               onChangeText={(text) => handleOnChange(text, "email")}
               onFocus={() => handleError(null, "email")}
+              value={inputs.email}
               error={errors.email}
             />
 
@@ -131,6 +132,7 @@ function LoginScreen({navigation}) {
               placeholder=" Enter Your Password"
               onChangeText={(text) => handleOnChange(text, "password")}
               onFocus={() => handleError(null, "password")}
+              value={inputs.password}
               error={errors.password}
             />
           {/* ُEmail */}

@@ -3,11 +3,19 @@ import React from "react";
 import { Colors ,orderInput} from "../data/data";
 import Buttone from "../Components/Buttone";
 import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
 
 
 
 
 function ShippingScreen() {
+  const[orderInfo,setOrderInfo]=useState({
+    city:"giza",
+    region:"giza",
+    postalCode:"12",
+    address:"12eq",
+    payment:"We"
+  });
   const navegation = useNavigation();
 
   return (
@@ -49,6 +57,10 @@ function ShippingScreen() {
                 ) : (
                   <Input
                     borderWidth={0.2}
+                    onChangeText={(text)=>{
+                      setOrderInfo({...orderInfo,[i.label]:text } )
+                    }}
+                    value={orderInfo[i.label] }
                     borderColor={Colors.main}
                     bg={Colors.subGreen}
                     py={4}
@@ -63,7 +75,7 @@ function ShippingScreen() {
                 )}
               </FormControl>
             ))}
-            <Buttone bg={Colors.main} color={Colors.white} childern={"Next"} onPress={() => navegation.navigate("PlaceOrderScreen")} />
+            <Buttone bg={Colors.main} color={Colors.white} childern={"Next"} onPress={() => navegation.navigate("PlaceOrderScreen", orderInfo)} />
           </VStack>
         </ScrollView>
       </Box>

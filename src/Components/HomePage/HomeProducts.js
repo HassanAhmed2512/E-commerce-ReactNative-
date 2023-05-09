@@ -3,16 +3,26 @@ import React from 'react';
 import { Colors, products } from '../../data/data';
 import Rating from '../Rating';
 import { useNavigation } from '@react-navigation/native';
+import { useEffect } from 'react';
+import { useState } from 'react';
 
-function HomeProducts() {
-  const navegation = useNavigation();
-
+function HomeProducts({searchText,setSearchText,products}) {
+  console.log(products.length);
+  const[displayProducts,setDisplayProducts]=useState([]);
+  const navegation=useNavigation();
+  useEffect(()=>{
+    if(!products.length )return;
+    setDisplayProducts(products.filter((product) => {
+      // console.log(product.name.toLowerCase() );
+      return product.name.toLowerCase().includes(searchText);
+    }) );
+  },[searchText,products]);
   return (
     <ScrollView>
       <Flex flexWrap={'wrap'} direction='row' justifyContent={'space-between'} px={6}>
-        {products.map((product) => {
+        {displayProducts.map((product) => {
           return (
-            <Pressable onPress={()=>navegation.navigate("SingleProduct",product)} key={product._id} w="47%" bg={Colors.white} rounded={'md'} shadow={2} pt={0.3} my={3} pb={2} overflow={'hidden'} >
+            <Pressable onPress={()=>navegation.navigate("SingleProduct",product)} key={product.id} w="47%" bg={Colors.white} rounded={'md'} shadow={2} pt={0.3} my={3} pb={2} overflow={'hidden'} >
               <Image source={{uri:product.image}} alt={product.name} w={'full'} h={24} resizeMode='contain' />
               <Box px={4} pt={1} >
               <Heading size={'sm'}  bold >

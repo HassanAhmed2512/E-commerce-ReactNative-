@@ -6,7 +6,9 @@ import { FontAwesome, FontAwesome5, Ionicons } from '@expo/vector-icons';
 import OrderItem from '../Components/PlaceOrder/OrderItem';
 import PlaceOrderModel from '../Components/PlaceOrder/placeOrderModel';
 
-const PlaceOrderScreen=()=>{
+const PlaceOrderScreen=({OrderInfo})=>{
+  const product = route.params;
+  
   return (
     <NativeBaseProvider>
       <Box
